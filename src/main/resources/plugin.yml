@@ -1,6 +1,6 @@
-main: com.westosia.<name>.Main
-name: <Name>
-version: ${project.version}
+main: com.westosia.godpowers.Main
+name: GodPowers
+version: 1.0
 api-version: 1.13
-author: <Author>
-description: <Description>
+author: Josh
+description: Powers when the god is holding their weapon
