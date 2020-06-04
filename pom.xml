@@ -22,6 +22,13 @@
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Westosia API -->
+        <dependency>
+            <groupId>com.westosia</groupId>
+            <artifactId>WestosiaAPI</artifactId>
+            <version>0.0.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
