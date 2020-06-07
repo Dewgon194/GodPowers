@@ -9,13 +9,21 @@
     <version>0.0.1</version>
 
     <repositories>
+        <!-- Paper API -->
         <repository>
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+
+        <!-- Westosia -->
+        <repository>
+            <id>westosia-repo</id>
+            <url>https://repo.westosia.com/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <!-- Paper API -->
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -26,7 +34,7 @@
         <dependency>
             <groupId>com.westosia</groupId>
             <artifactId>WestosiaAPI</artifactId>
-            <version>0.0.1</version>
+            <version>1.2.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

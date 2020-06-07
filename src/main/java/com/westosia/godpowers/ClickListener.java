@@ -21,16 +21,21 @@ public class ClickListener implements Listener {
 
     private final Main instance = Main.getInstance();
 
+    // TODO: Move duplicate code into methods
+    // TODO: Remove useless if statements
+    // TODO: Remove Explicity typed arguments in "new ArrayList"
+    // TODO: #addAll can be converted to a paramaterised constructor on line above
+
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
-
         Player player = e.getPlayer();
-        if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD)  && e.getItem().getItemMeta().getCustomModelData() == 1) {
+
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD) && e.getItem().getItemMeta().getCustomModelData() == 1) {
             ArrayList<Entity> airVictims = new ArrayList<Entity>();
             airVictims.addAll(player.getNearbyEntities(10, 10, 10));
 
             for (Entity victim : airVictims) {
-                if (victim instanceof Entity && victim != player) {
+                if (victim instanceof Entity && victim != player) { // TODO: Replace instanceof Entity with LivingEntity
                     WestosiaAPI.getParticleEmitter().playParticle(player.getLocation(), Particle.DRAGON_BREATH);
                     victim.setVelocity(new Vector(0, 0.6, 0));
                     victim.setVelocity(new Vector(player.getLocation().getDirection().multiply(10).getX(), 2, player.getLocation().getDirection().multiply(10).getZ()));
@@ -49,12 +54,12 @@ public class ClickListener implements Listener {
             player.teleport(newLoc);
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
 
-        } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD)  && e.getItem().getItemMeta().getCustomModelData() == 1) {
+        } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD) && e.getItem().getItemMeta().getCustomModelData() == 1) {
             ArrayList<Entity> airVictims = new ArrayList<Entity>();
             airVictims.addAll(player.getNearbyEntities(10, 10, 10));
 
             for (Entity victim : airVictims) {
-                if (victim instanceof Entity && victim != player) {
+                if (victim instanceof Entity && victim != player) { // TODO: Replace instanceof Entity with LivingEntity
                     WestosiaAPI.getParticleEmitter().playParticle(player.getLocation(), Particle.DRAGON_BREATH);
                     victim.setVelocity(new Vector(0, 0.6, 0));
                     victim.setVelocity(new Vector(player.getLocation().getDirection().multiply(10).getX(), 2, player.getLocation().getDirection().multiply(10).getZ()));
@@ -77,7 +82,7 @@ public class ClickListener implements Listener {
             ArrayList<Entity> airVictims = new ArrayList<Entity>();
             airVictims.addAll(player.getNearbyEntities(10, 10, 10));
             for (Entity victim : airVictims) {
-                if (victim instanceof Entity && victim != player) {
+                if (victim instanceof Entity && victim != player) { // TODO: Replace instanceof Entity with LivingEntity
                     victim.setVelocity(new Vector(0, 0.6, 0));
                     victim.setGravity(false);
                     Bukkit.getScheduler().runTaskLater(instance, () -> {
@@ -93,7 +98,7 @@ public class ClickListener implements Listener {
             ArrayList<Entity> airVictims = new ArrayList<Entity>();
             airVictims.addAll(player.getNearbyEntities(10, 10, 10));
             for (Entity victim : airVictims) {
-                if (victim instanceof Entity && victim != player) {
+                if (victim instanceof Entity && victim != player) { // TODO: Replace instanceof Entity with LivingEntity
                     Vector dif = victim.getLocation().toVector().subtract(player.getLocation().toVector());
                     victim.setVelocity(dif.normalize().multiply(3).add(new Vector(0, 1, 0)));
                 }
@@ -125,7 +130,6 @@ public class ClickListener implements Listener {
 
 
         } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD) && e.getItem().getItemMeta().getCustomModelData() == 3) {
-
             ArrayList<Entity> lightningVictims = new ArrayList<Entity>();
             lightningVictims.addAll(player.getNearbyEntities(10, 10, 10));
             World world = player.getWorld();

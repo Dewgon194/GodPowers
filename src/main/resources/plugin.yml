@@ -1,6 +1,6 @@
 main: com.westosia.godpowers.Main
 name: GodPowers
-version: 1.0
+version: ${project.version}
 api-version: 1.13
 author: Josh
 description: Powers when the god is holding their weapon
