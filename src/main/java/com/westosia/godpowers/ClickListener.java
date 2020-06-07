@@ -1,6 +1,5 @@
 package com.westosia.godpowers;
 
-
 import com.westosia.westosiaapi.WestosiaAPI;
 import org.bukkit.*;
 import org.bukkit.block.Block;
