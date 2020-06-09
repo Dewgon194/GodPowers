@@ -59,12 +59,12 @@ public class ClickListener implements Listener {
 
             } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && modelData == 2) {
 
+                WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ITEM_ELYTRA_FLYING, 1, 2);
                 ArrayList<Entity> airVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
                 for (Entity victim : airVictims) {
                     if ((victim instanceof LivingEntity || victim.getType().equals(EntityType.ARROW)) && victim != player) {
                         victim.setVelocity(new Vector(0, 0.6, 0));
                         victim.setGravity(false);
-                        WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ITEM_ELYTRA_FLYING, 1, 2);
                         Bukkit.getScheduler().runTaskLater(instance, () -> {
 
                             victim.setGravity(true);
