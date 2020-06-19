@@ -23,7 +23,7 @@ public class ClickListener implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD)) {
+        if (e.getItem() != null && e.getItem().getItemMeta().hasCustomModelData() && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD)) {
             int modelData = e.getItem().getItemMeta().getCustomModelData();
             if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && modelData == 1) {
                 ArrayList<Entity> chaosVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
@@ -73,7 +73,7 @@ public class ClickListener implements Listener {
                         }, 60);
                     }
                 }
-
+                
             } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && modelData == 3) {
                 List<Block> los = player.getLineOfSight(null, 32);
                 World world = player.getWorld();
