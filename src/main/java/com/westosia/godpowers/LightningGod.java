@@ -14,7 +14,7 @@ public class LightningGod {
 
     private final Main instance = Main.getInstance();
 
-    public void lightningPower1(Player player){
+    public void lightningBeam(Player player){
         List<Block> los = player.getLineOfSight(null, 32);
         World world = player.getWorld();
         world.strikeLightning(player.getLocation());
@@ -32,14 +32,12 @@ public class LightningGod {
                 int finalI = i;
                 Bukkit.getScheduler().runTaskLater(instance, () -> {
                     world.strikeLightning(los.get(finalI).getLocation());
-
-
                 }, i);
             }
         }, 28);
     }
 
-    public void lightningPower2(Player player){
+    public void lightningAOEStrike(Player player){
         ArrayList<Entity> lightningVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
         World world = player.getWorld();
         for (Entity victim : lightningVictims) {

@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class ChaosGod {
 
-    public void chaosPower1(Player player) {
+    public void chaosTeleport(Player player) {
         ArrayList<Entity> chaosVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
         for (Entity victim : chaosVictims) {
             if (victim instanceof LivingEntity && victim != player) {

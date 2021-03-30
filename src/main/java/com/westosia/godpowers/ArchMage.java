@@ -14,9 +14,13 @@ import java.util.ArrayList;
 
 public class ArchMage {
 
-    private final Main instance = Main.getInstance();
+    private final Main instance;
 
-    public void archMagePower1(Player player) {
+    public ArchMage() {
+        instance = Main.getInstance();
+    }
+
+    public void archMageSelfInvincible(Player player) {
         PotionEffect invincibility = (new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 5));
         player.addPotionEffect(invincibility);
         player.setGlowing(true);
@@ -29,7 +33,7 @@ public class ArchMage {
         }, 20 * 20);
     }
 
-    public void archMagePower2(Player player) {
+    public void archMageAOEInvincible(Player player) {
         ArrayList<Entity> invunPeople = new ArrayList<>(player.getNearbyEntities(3, 3, 3));
         PotionEffect invincibility = (new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 200, 5));
         player.addPotionEffect(invincibility);
@@ -42,6 +46,7 @@ public class ArchMage {
             player.setGlowing(false);
             WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 15, Sound.BLOCK_GLASS_BREAK);
         }, 20 * 10);
+
         for (Entity victim : invunPeople) {
             if ((victim instanceof LivingEntity)) {
                 ((LivingEntity) victim).addPotionEffect(invincibility);

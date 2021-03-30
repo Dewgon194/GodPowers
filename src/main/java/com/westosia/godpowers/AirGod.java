@@ -14,7 +14,7 @@ public class AirGod {
 
     private final Main instance = Main.getInstance();
 
-    public void airPower1(Player player){
+    public void airSlam(Player player){
         WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ITEM_ELYTRA_FLYING, 1, 2);
         ArrayList<Entity> airVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
         for (Entity victim : airVictims) {
@@ -22,7 +22,6 @@ public class AirGod {
                 victim.setVelocity(new Vector(0, 0.6, 0));
                 victim.setGravity(false);
                 Bukkit.getScheduler().runTaskLater(instance, () -> {
-
                     victim.setGravity(true);
                     victim.setVelocity(new Vector(0, -4, 0));
                     WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ENTITY_PLAYER_ATTACK_SWEEP);
@@ -31,7 +30,7 @@ public class AirGod {
         }
     }
 
-    public void airPower2(Player player){
+    public void airDeflect(Player player){
         ArrayList<Entity> airVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
         for (Entity victim : airVictims) {
             if ((victim instanceof LivingEntity || victim.getType().equals(EntityType.ARROW)) && victim != player) {
