@@ -44,6 +44,8 @@ public class ClickListener implements Listener {
                     case 4:
                         archMage.archMageSelfInvincible(player);
                         break;
+                    default:
+                        break;
                 }
             } else if (click.equals(Action.RIGHT_CLICK_BLOCK)) {
                 switch (modelData) {
