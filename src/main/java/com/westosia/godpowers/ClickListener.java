@@ -9,6 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -19,95 +22,44 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ClickListener implements Listener {
 
     private final Main instance = Main.getInstance();
+    private ArchMage archMage;
+    private AirGod airGod;
+    private ChaosGod chaosGod;
+    private LightningGod lightningGod;
 
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (e.getItem() != null && e.getItem().getItemMeta().hasCustomModelData() && e.getItem().hasItemMeta() && e.getItem().getType().equals(Material.DIAMOND_SWORD)) {
-            int modelData = e.getItem().getItemMeta().getCustomModelData();
-            if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && modelData == 1) {
-                ArrayList<Entity> chaosVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
+        Action click = e.getAction();
+        ItemStack item = e.getItem();
+        if (item != null && item.getItemMeta().hasCustomModelData() && item.hasItemMeta() && item.getType().equals(Material.DIAMOND_SWORD)) {
+            int modelData = item.getItemMeta().getCustomModelData();
+            if ((click.equals(Action.RIGHT_CLICK_AIR) || click.equals(Action.RIGHT_CLICK_BLOCK)) && modelData == 1) {
+                chaosGod.chaosPower1(player);
 
-                for (Entity victim : chaosVictims) {
-                    if (victim instanceof LivingEntity && victim != player) {
-                        WestosiaAPI.getParticleEmitter().playParticle(player.getLocation(), Particle.DRAGON_BREATH);
-                        victim.setVelocity(new Vector(player.getLocation().getDirection().multiply(10).getX(), 2, player.getLocation().getDirection().multiply(10).getZ()));
-                        victim.setFireTicks(100);
-                        victim.getWorld().playSound(victim.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
-                    }
-                }
-                Random rand = new Random();
-                int upperbound = 20;
-                int randomX = rand.nextInt(upperbound);
-                int randomY = 150;
-                int randomZ = rand.nextInt(upperbound);
-                Location newLoc = player.getLocation().add(randomX, randomY, randomZ);
-                randomY = newLoc.getWorld().getHighestBlockYAt(newLoc);
-                newLoc.setY(randomY + 1);
-                player.teleport(newLoc);
-                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
+            } else if (click.equals(Action.RIGHT_CLICK_BLOCK) && modelData == 2) {
 
-            } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && modelData == 2) {
+                airGod.airPower1(player);
 
-                ArrayList<Entity> airVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
-                for (Entity victim : airVictims) {
-                    if ((victim instanceof LivingEntity || victim.getType().equals(EntityType.ARROW)) && victim != player) {
-                        Vector dif = victim.getLocation().toVector().subtract(player.getLocation().toVector());
-                        victim.setVelocity(dif.normalize().multiply(3).add(new Vector(0, 1, 0)));
-                    }
-                }
+            } else if (click.equals(Action.RIGHT_CLICK_AIR) && modelData == 2) {
 
-            } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && modelData == 2) {
+                airGod.airPower2(player);
 
-                WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ITEM_ELYTRA_FLYING, 1, 2);
-                ArrayList<Entity> airVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
-                for (Entity victim : airVictims) {
-                    if ((victim instanceof LivingEntity || victim.getType().equals(EntityType.ARROW)) && victim != player) {
-                        victim.setVelocity(new Vector(0, 0.6, 0));
-                        victim.setGravity(false);
-                        Bukkit.getScheduler().runTaskLater(instance, () -> {
-
-                            victim.setGravity(true);
-                            victim.setVelocity(new Vector(0, -4, 0));
-                            WestosiaAPI.getSoundEmitter().playSound(player.getLocation(), 10, Sound.ENTITY_PLAYER_ATTACK_SWEEP);
-                        }, 60);
-                    }
-                }
-                
-            } else if (e.getAction().equals(Action.RIGHT_CLICK_AIR) && modelData == 3) {
-                List<Block> los = player.getLineOfSight(null, 32);
-                World world = player.getWorld();
-                world.strikeLightning(player.getLocation());
-                player.setGlowing(true);
-                Bukkit.getScheduler().runTaskLater(instance, () -> {
-                    world.strikeLightning(player.getLocation());
-                    Bukkit.getScheduler().runTaskLater(instance, () -> {
-                        world.strikeLightning(player.getLocation());
-                    }, 8);
-                }, 4);
-                Bukkit.getScheduler().runTaskLater(instance, () -> {
-                    player.setGlowing(false);
-                    int i;
-                    for (i = 0; i < los.size(); i++) {
-                        int finalI = i;
-                        Bukkit.getScheduler().runTaskLater(instance, () -> {
-                            world.strikeLightning(los.get(finalI).getLocation());
+            } else if (click.equals(Action.RIGHT_CLICK_AIR) && modelData == 3) {
+                lightningGod.lightningPower1(player);
 
 
-                        }, i);
-                    }
-                }, 28);
+            } else if (click.equals(Action.RIGHT_CLICK_BLOCK) && modelData == 3) {
+                lightningGod.lightningPower2(player);
 
+            } else if (click.equals(Action.RIGHT_CLICK_AIR) && modelData == 4) {
+                archMage.archMagePower1(player);
 
-            } else if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && modelData == 3) {
-                ArrayList<Entity> lightningVictims = new ArrayList<>(player.getNearbyEntities(10, 10, 10));
-                World world = player.getWorld();
-                for (Entity victim : lightningVictims) {
-                    if (victim instanceof LivingEntity && victim != player) {
-                        world.strikeLightning(victim.getLocation());
-                    }
-                }
+            } else if (click.equals(Action.RIGHT_CLICK_BLOCK) && modelData == 4) {
+                archMage.archMagePower2(player);
+
             }
         }
     }
 }
+
